@@ -1,11 +1,11 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import copy
 from initialization import initialization
 from cal_objective import cal_objective
 from neighboringX import neighboringX
-
 from parse_data import parse_data
 def main():
     job_machine, processing_time, machine_number, operation_number = parse_data()
@@ -49,4 +49,12 @@ def main():
         print("最优解是：\n")
         print(bestX)
 
-
+        mpl.rcParams['font.sans-serif'] = ['SimHei']
+        mpl.rcParams['axes.unicode_minus'] = False
+        plt.plot(trace_min)
+        plt.plot(trace_Y)
+        plt.title("算法曲线收敛图")
+        plt.xlabel("迭代次数")
+        plt.ylabel("最大完工时间")
+if __name__ == '_main_':
+    main()
