@@ -1,11 +1,11 @@
 import pandas as pd
 import copy
-def parse_data():
-    job_machine_tmp = pd.read_excel("排产输入数据样例.xlsx",sheet_name="工序可选机器表")
-    processing_time_tmp = pd.read_excel("排产输入数据样例.xlsx",sheet_name="各工序加工时间")
+def parse_data_new2():
+    job_machine_tmp = pd.read_excel("排产输入数据样例3.xlsx",sheet_name="工序可选机器表")
+    processing_time_tmp = pd.read_excel("排产输入数据样例3.xlsx",sheet_name="各工序加工时间")
 
     ptshape = processing_time_tmp.shape
-    machine_number = 10
+    machine_number = 8
     job_number = ptshape[0]
     processing_time = []
     job_machine = []
@@ -28,9 +28,12 @@ def parse_data():
         job = []
         for m in job_tmp:
             if isinstance(m, str):
-                m_tmp = m.strip('[]').split(',')
-                print(m_tmp)
-                job.append(list(map(int, m_tmp)))
+                if m is '[]':
+                    job.append([0])
+                else:
+                    m_tmp = m.strip('[]').split(',')
+                    print(m_tmp)
+                    job.append(list(map(int, m_tmp)))
             else:
                 job.append([m])
         job_machine.append(copy.deepcopy(job))
@@ -42,9 +45,12 @@ def parse_data():
         time = []
         for t in pt_tmp:
             if isinstance(t, str):
-                t_tmp = t.strip('[]').split(',')
-                print(t_tmp)
-                time.append(list(map(int, t_tmp)))
+                if t is '[]':
+                    time.append([0])
+                else:
+                    t_tmp = t.strip('[]').split(',')
+                    print(t_tmp)
+                    time.append(list(map(int, t_tmp)))
             else:
                 time.append([t])
         processing_time.append(copy.deepcopy(time))
